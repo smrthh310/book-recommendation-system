@@ -136,5 +136,5 @@ We welcome contributions to the project. If you would like to contribute, please
 
 
 ## Contact
-For any questions or inquiries, please reach out to rohitkrtiwari2002@gmail.com.
+For any questions or inquiries, please reach out to samarthgautam310@gmail.com.
 

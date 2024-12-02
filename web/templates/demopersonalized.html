@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/demo.css">
+    <link rel="stylesheet" href="/static/css/slider.css">
+    <title>ThePagePulse</title>
+</head>
+<body>
+    <div id="wrapper">
+        <div class="nav">
+            <a class="name" href="/">
+                <div class="title"><font>ThePagePulse</font></div>
+                <div class="sub-title"><font>World of Books: Insights, Research, and Recommendations</font></div>
+            </a>
+            <div class="menu">
+                <a href="/about"><p>About</p></a>
+                <a href="/methods"><p>Methods</p></a>
+                <a href="/workshowcase"><p>Work Showcase</p></a>
+                <a href="/results"><p>Results</p></a>
+                <a href="/demo/trends"><p>Demo</p></a>
+                <a href="/blogs"><p>Blogs</p></a>
+                <a href="/contact"><p>Contact</p></a>
+            </div>
+        </div>
+
+        
+        <div class="nav1">
+            <a href="/demo/trends" style="background: blanchedalmond !important;border-bottom: 1px solid #d1afaf;" class="active">Trends <span style='font-size:16px;'>&#8628;</span></a>
+            <a href="/demo/personalized">Personalize Recommendations <span style='font-size:16px;'>&#8628;</span></a>
+        </div>
+        
+        <div class="different-methods">
+            
+            <div class="user-selection">
+                <p class="heading">User-Selection :-</p>
+                <select name="users" onchange="location = this.value;" id="users">
+                    {% if userid == False %} <option value="select">select</option> {%endif%}
+                    {% for user in users %}
+
+                    {% if userid == user %} <option value="/demo/personalized/{{user}}" selected><a href="/{{user}}">{{user}}</a></option>
+                    {%else%}<option value="/demo/personalized/{{user}}"><a href="/{{user}}">{{user}}</a></option>{%endif%}
+                    {% endfor %}
+                </select>
+                <a href="/demo/personalized/updateUser">click here to update the users list</a>
+            </div>
+
+            
+            {% if svd  != False %}
+            <div class="read-by-user">
+                <p class="heading">Books Read By User :-</p>
+                <div class="card-wrapper" id="card-wrapper1"> 
+                    <i id="left" class="fa-solid  fas fa-angle-left">&#129188</i> 
+                    <ul class="carousel" id="carousel1"> 
+                        {% for book in read %}
+                        <li class="card card1"> 
+                            <div class="img"><img src="{{book[3]}}" draggable="false"> </div> 
+                            <h2>{{book[0]}}</h2> 
+                            <span>{{book[1]}}</span> 
+                            <span>{{book[2]}}</span> 
+                        </li> 
+                        {% endfor %}
+                    </ul> 
+                    <i id="right" class="fa-solid fas fa-angle-right">&#129189</i> 
+                </div> 
+            </div>
+
+            <div class="recommendation">
+                <p class="heading">SVD Recommendations :-</p>
+                <div class="card-wrapper" id="card-wrapper2"> 
+                    <i id="left" class="fa-solid  fas fa-angle-left">&#129188</i> 
+                    <ul class="carousel" id="carousel2"> 
+                        {% for book in svd %}
+                        <li class="card card2"> 
+                            <div class="img"><img src="{{book[3]}}" draggable="false"> </div> 
+                            <h2>{{book[0]}}</h2> 
+                            <span>{{book[1]}}</span> 
+                            <span>{{book[2]}}</span> 
+                        </li> 
+                        {% endfor %}
+                    </ul> 
+                    <i id="right" class="fa-solid fas fa-angle-right">&#129189</i> 
+                </div> 
+            </div>
+            <div class="recommendation">
+                <p class="heading">NMF Recommendations :-</p>
+                <div class="card-wrapper" id="card-wrapper3"> 
+                    <i id="left" class="fa-solid  fas fa-angle-left">&#129188</i> 
+                    <ul class="carousel" id="carousel3"> 
+                        {% for book in nmf %}
+                        <li class="card card3"> 
+                            <div class="img"><img src="{{book[3]}}" draggable="false"> </div> 
+                            <h2>{{book[0]}}</h2> 
+                            <span>{{book[1]}}</span> 
+                            <span>{{book[2]}}</span> 
+                        </li> 
+                        {% endfor %}
+                    </ul> 
+                    <i id="right" class="fa-solid fas fa-angle-right">&#129189</i> 
+                </div> 
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+</body>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() { 
+    const carousel = document.getElementById("carousel1"); 
+    const arrowBtns = document.querySelectorAll("#card-wrapper1 i"); 
+    const wrapper = document.querySelector("#card-wrapper1"); 
+  
+    const firstCard = carousel.querySelector(".card1"); 
+    const firstCardWidth = firstCard.offsetWidth; 
+  
+    let isDragging = false, 
+        startX, 
+        startScrollLeft, 
+        timeoutId; 
+  
+    const dragStart = (e) => {  
+        isDragging = true; 
+        carousel.classList.add("dragging"); 
+        startX = e.pageX; 
+        startScrollLeft = carousel.scrollLeft; 
+    }; 
+  
+    const dragging = (e) => { 
+        if (!isDragging) return; 
+      
+        const newScrollLeft = startScrollLeft - (e.pageX - startX); 
+      
+        if (newScrollLeft <= 0 || newScrollLeft >=  
+            carousel.scrollWidth - carousel.offsetWidth) { 
+            isDragging = false; 
+            return; 
+        } 
+        carousel.scrollLeft = newScrollLeft; 
+    }; 
+  
+    const dragStop = () => { 
+        isDragging = false;  
+        carousel.classList.remove("dragging"); 
+    }; 
+  
+    const autoPlay = () => { 
+        if (window.innerWidth < 800) return;  
+        const totalCardWidth = carousel.scrollWidth; 
+        const maxScrollLeft = totalCardWidth - carousel.offsetWidth; 
+        if (carousel.scrollLeft >= maxScrollLeft) return; 
+        timeoutId = setTimeout(() =>  
+            carousel.scrollLeft += firstCardWidth, 2500); 
+    }; 
+  
+    carousel.addEventListener("mousedown", dragStart); 
+    carousel.addEventListener("mousemove", dragging); 
+    document.addEventListener("mouseup", dragStop); 
+    wrapper.addEventListener("mouseenter", () =>  
+        clearTimeout(timeoutId)); 
+    wrapper.addEventListener("mouseleave", autoPlay); 
+    arrowBtns.forEach(btn => { 
+        btn.addEventListener("click", () => { 
+            carousel.scrollLeft += btn.id === "left" ?  
+                -firstCardWidth : firstCardWidth; 
+        }); 
+    }); 
+
+
+    const carousel2 = document.getElementById("carousel2"); 
+    const arrowBtns2 = document.querySelectorAll("#card-wrapper2 i"); 
+    const wrapper2 = document.querySelector("#card-wrapper2"); 
+  
+    const firstCard2 = carousel2.querySelector(".card2"); 
+    const firstCardWidth2 = firstCard2.offsetWidth; 
+  
+    let isDragging2 = false, 
+        startX2, 
+        startScrollLeft2, 
+        timeoutId2; 
+  
+    const dragStart2 = (e) => {  
+        isDragging2 = true; 
+        carousel2.classList.add("dragging"); 
+        startX2 = e.pageX2; 
+        startScrollLeft2 = carousel2.scrollLeft; 
+    }; 
+  
+    const dragging2 = (e) => { 
+        if (!isDragging2) return; 
+      
+        const newScrollLeft2 = startScrollLeft2 - (e.pageX2 - startX2); 
+      
+        if (newScrollLeft2 <= 0 || newScrollLeft2 >=  
+            carousel2.scrollWidth - carousel2.offsetWidth) { 
+            isDragging2 = false; 
+            return; 
+        } 
+        carousel2.scrollLeft = newScrollLeft2; 
+    }; 
+  
+    const dragStop2 = () => { 
+        isDragging2 = false;  
+        carousel2.classList.remove("dragging"); 
+    }; 
+  
+    const autoPlay2 = () => { 
+        if (window.innerWidth < 800) return;  
+        const totalCardWidth2 = carousel2.scrollWidth; 
+        const maxScrollLeft2 = totalCardWidth2 - carousel2.offsetWidth; 
+        if (carousel2.scrollLeft >= maxScrollLeft2) return; 
+        timeoutId2 = setTimeout(() =>  
+            carousel2.scrollLeft += firstCardWidth2, 2500); 
+    }; 
+  
+    carousel2.addEventListener("mousedown", dragStart); 
+    carousel2.addEventListener("mousemove", dragging); 
+    document.addEventListener("mouseup", dragStop); 
+    wrapper2.addEventListener("mouseenter", () =>  
+        clearTimeout(timeoutId2)); 
+    wrapper2.addEventListener("mouseleave", autoPlay); 
+    arrowBtns2.forEach(btn => { 
+        btn.addEventListener("click", () => { 
+            carousel2.scrollLeft += btn.id === "left" ?  
+                -firstCardWidth2 : firstCardWidth2; 
+        }); 
+    });  
+
+
+
+    const carousel3 = document.getElementById("carousel3"); 
+    const arrowBtns3 = document.querySelectorAll("#card-wrapper3 i"); 
+    const wrapper3 = document.querySelector("#card-wrapper3"); 
+  
+    const firstCard3 = carousel3.querySelector(".card3"); 
+    const firstCardWidth3 = firstCard3.offsetWidth; 
+  
+    let isDragging3 = false, 
+        startX3, 
+        startScrollLeft3, 
+        timeoutId3; 
+  
+    const dragStart3 = (e) => {  
+        isDragging3 = true; 
+        carousel3.classList.add("dragging"); 
+        startX3 = e.pageX3; 
+        startScrollLeft3 = carousel3.scrollLeft; 
+    }; 
+  
+    const dragging3 = (e) => { 
+        if (!isDragging3) return; 
+      
+        const newScrollLeft3 = startScrollLeft3 - (e.pageX3 - startX3); 
+      
+        if (newScrollLeft3 <= 0 || newScrollLeft3 >=  
+            carousel3.scrollWidth - carousel3.offsetWidth) { 
+            isDragging3 = false; 
+            return; 
+        } 
+        carousel3.scrollLeft = newScrollLeft3; 
+    }; 
+  
+    const dragStop3 = () => { 
+        isDragging3 = false;  
+        carousel3.classList.remove("dragging"); 
+    }; 
+  
+    const autoPlay3 = () => { 
+        if (window.innerWidth < 800) return;  
+        const totalCardWidth3 = carousel3.scrollWidth; 
+        const maxScrollLeft3 = totalCardWidth3 - carousel3.offsetWidth; 
+        if (carousel3.scrollLeft >= maxScrollLeft3) return; 
+        timeoutId3 = setTimeout(() =>  
+            carousel3.scrollLeft += firstCardWidth3, 2500); 
+    }; 
+  
+    carousel3.addEventListener("mousedown", dragStart); 
+    carousel3.addEventListener("mousemove", dragging); 
+    document.addEventListener("mouseup", dragStop); 
+    wrapper3.addEventListener("mouseenter", () =>  
+        clearTimeout(timeoutId3)); 
+    wrapper3.addEventListener("mouseleave", autoPlay); 
+    arrowBtns3.forEach(btn => { 
+        btn.addEventListener("click", () => { 
+            carousel3.scrollLeft += btn.id === "left" ?  
+                -firstCardWidth3 : firstCardWidth3; 
+        }); 
+    });  
+}); 
+</script>
+
+</html>

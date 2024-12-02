@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/demo2.css">
+    <title>ThePagePulse</title>
+</head>
+<body>
+    <div id="wrapper">
+        <div class="nav">
+            <a class="name" href="/">
+                <div class="title"><font>ThePagePulse</font></div>
+                <div class="sub-title"><font>World of Books: Insights, Research, and Recommendations</font></div>
+            </a>
+            <div class="menu">
+                <a href="/about"><p>About</p></a>
+                <a href="/methods"><p>Methods</p></a>
+                <a href="/workshowcase"><p>Work Showcase</p></a>
+                <a href="/results"><p>Results</p></a>
+                <a href="/demo/trends"><p>Demo</p></a>
+                <a href="/blogs"><p>Blogs</p></a>
+                <a href="/contact"><p>Contact</p></a>
+            </div>
+        </div>
+        <div class="side-menu">
+            <p>Trending</p>
+            <p>Collaborative Filtering</p>
+        </div>
+
+        <div class="different-methods">
+            <div class="user-div">
+                
+                <div class="user-heading">User_id: </div>
+                <a class="user-id" href="/demo" title="Click me to Randomly Choose a User" id="userID">{{user}}<i class="arrow down"></i></a>
+            </div>
+
+            <p class="heading">Books Read By User:</p>
+            <div>
+                <div class="book-row">
+                {% for row  in read %}
+                    <div class="book-wrapper">
+                        <img src="{{row[3]}}" style="height: 330px; width: 202px;"></img>
+                        <p class="title">{{row[0]}}</p>
+                        <p class="author">{{row[1]}}</p>
+                        <p class="published">{{row[2]}}</p>
+                    </div>
+                {% if loop.index%4 == 0 %}
+                </div><div class="book-row">
+                {% endif %}
+                {% endfor %}
+                </div>
+            </div>
+
+
+            <p class="heading">Books Recommended to User:</p>
+            <div>
+                <div class="book-row">
+                {% for row  in recommended %}
+                    <div class="book-wrapper">
+                        <img src="{{row[3]}}" style="height: 330px; width: 202px;"></img>
+                        <p class="title">{{row[0]}}</p>
+                        <p class="author">{{row[1]}}</p>
+                        <p class="published">{{row[2]}}</p>
+                    </div>
+                {% if loop.index%4 == 0 %}
+                </div><div class="book-row">
+                {% endif %}
+                {% endfor %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+</html>

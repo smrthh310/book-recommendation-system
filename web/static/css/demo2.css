@@ -1,0 +1,78 @@
+.user-div{
+    display: flex;
+    margin: 10px 0;
+    padding: 20px 0;
+}
+
+.user-heading{
+    font-size: 22px;
+    font-weight: 700;
+    color: rgb(150, 120, 45); 
+    letter-spacing: 2px;
+}
+
+.user-id{
+    font-size: 19px;
+    color: black;
+    letter-spacing: 2px;
+    margin-left: 16px;
+    text-decoration: none;
+    font-weight: 400;
+    cursor: pointer;
+    border: 1px solid black;
+    border-radius: 7px;
+    padding: 2px 18px;
+}
+
+
+.book-row{
+    display: flex;
+    justify-content: space-around;
+    margin: 40px 0;
+}
+
+.book-wrapper{
+    max-width: 202px;
+}
+
+.book-wrapper .title{
+    font-weight: 600;
+    margin: 0;
+}
+.book-wrapper .author{
+    margin: 0;
+    padding: 0;
+    color: darkgray;
+    font-size: 13px;
+}
+.book-wrapper .published{
+    margin: 0;
+    padding: 0;
+    color: darkgray;
+    font-size: 10px;
+}
+
+.side-menu{
+    position: FIXED;
+    left: 154px;
+    text-align: center;
+    align-items: flex-end;
+    display: flex;
+    flex-direction: column;
+}
+
+.side-menu p{
+    border-bottom: 1px solid #e7d5d5;
+    background: white;
+    width: fit-content;
+    padding: 10px 31px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    color: chocolate;
+    margin-bottom: 0;
+    cursor: pointer;
+}
+
+.side-menu p:hover{
+    text-decoration: underline;
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/demo.css">
+    <title>ThePagePulse</title>
+</head>
+<body>
+    <div id="wrapper">
+        <div class="nav">
+            <a class="name" href="/">
+                <div class="title"><font>ThePagePulse</font></div>
+                <div class="sub-title"><font>World of Books: Insights, Research, and Recommendations</font></div>
+            </a>
+            <div class="menu">
+                <a href="/about"><p>About</p></a>
+                <a href="/methods"><p>Methods</p></a>
+                <a href="/workshowcase"><p>Work Showcase</p></a>
+                <a href="/results"><p>Results</p></a>
+                <a href="/demo/trends"><p>Demo</p></a>
+                <a href="/blogs"><p>Blogs</p></a>
+                <a href="/contact"><p>Contact</p></a>
+            </div>
+        </div>
+
+        
+        <div class="nav1">
+            <a href="/demo/trends">Trends <span style='font-size:16px;'>&#8628;</span></a>
+            <a href="/demo/personalized" class="active" style="background: blanchedalmond !important; border-bottom: 1px solid #d1afaf;">Personalize Recommendations <span style='font-size:16px;'>&#8628;</span></a>
+        </div>
+
+        <div class="trending-books">
+            <p class="heading">All time Highest Treding Books :-</p>
+            {% for row  in recommended %}
+            <div class="row">
+                <div><img style="max-width: 202px;" src='{{row[8]}}'></div>
+                <div>
+                
+                    <p>{{row[2]}}</p>
+                    <p>Author: {{row[3]}}</p>
+                    <p>Published Year: {{row[4]}}</p>
+                    <p>Publisher: {{row[5]}}</p>
+                    <p>No of Users Rated: {{row[6]}}</p>
+                    <p>Average  Rating: {{row[7]}}</p>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+
+</body>
+
+</html>

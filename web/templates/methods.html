@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <title>ThePagePulse</title>
+</head>
+<body>
+    <div id="wrapper">
+        <div class="nav">
+            <a class="name" href="/">
+                <div class="title"><font>ThePagePulse</font></div>
+                <div class="sub-title"><font>World of Books: Insights, Research, and Recommendations</font></div>
+            </a>
+            <div class="menu">
+                <a href="/about"><p>About</p></a>
+                <a href="/methods"><p>Methods</p></a>
+                <a href="/workshowcase"><p>Work Showcase</p></a>
+                <a href="/results"><p>Results</p></a>
+                <a href="/demo/trends"><p>Demo</p></a>
+                <a href="/blogs"><p>Blogs</p></a>
+                <a href="/contact"><p>Contact</p></a>
+            </div>
+        </div>
+
+        <div class="different-methods">
+            <p class="heading">Popularity Based Recommendation</p>
+            <p class="content">As the name suggests Popularity based recommendation system works with the trend. It basically uses the items which are in trend right now. For example, if any book which is usually bought by every new user then there are chances that it may suggest that book to the user who just signed up.<br>
+                Book weighted avg formula:                                  <br><br>                   
+                <span style="color: brown; font-weight: 600; font-size: 20px;">Weighted Rating(WR)=[vR/(v+m)]+[mC/(v+m)]</span>      <br><br>
+                where,  
+                v is the number of votes for the books;                     <br>
+                m is the minimum votes required to be listed in the chart;  <br>
+                R is the average rating of the book; and                    <br>
+                C is the mean vote across the whole report.                 <br>
+                Now we find the values of v,m,R,C.                          <br>
+                <br>
+                <img src="/static/images/popularity.png" alt="">
+            </p>
+
+
+            <p class="heading">Collaborative Filtering Based Recommendation</p>
+            <p class="content">Collaborative filtering (CF) is a technique used in recommendation systems to develop recommendations based on the similarities between users and items simultaneously. <br><br>
+                <font style="font-weight: 600; font-size: 19px;">There are two cases of Collaborative Filtering: </font>
+                <ol>
+                    <li>User-based, which measures the similarity between target users and other users.</li>
+                    <li>Item-based, which measures the similarity between the items that target users rate or interact with the other item</li>
+                </ol>
+            </p>
+
+            <div class="content" style="display: flex;">
+                <ul style="line-height: 70px; font-size: 24px;">
+                    <li style="color: blue;">Consider User <span style="font-weight: 700;">X</span></li>
+                    <li>Find set <span style="font-weight: 700;">N</span> of other users whose ratings are <span style="color: red;">"similar"</span> to <span style="font-weight: 700;">X</span>'s Ratings</li>
+                    <li>Estimate <span style="font-weight: 700;">X</span>'s ratings based on rating of Users in <span style="font-weight: 700;">N</span></li>
+                </ul>
+                <img style="max-width: 50%;" src="/static/images/collaborative.png" alt="">
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
